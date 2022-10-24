@@ -22,7 +22,7 @@ void addNode(struct Node *root, int val)
 	prev->next = node;
 }
 
-void remove(struct Node *node)
+void delete (struct Node *node)
 {
 	struct Node *next;
 	while (node != NULL)

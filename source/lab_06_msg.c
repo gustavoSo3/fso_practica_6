@@ -110,7 +110,7 @@ void consumer(int msgid)
 			addNode(&root, msg.content);
 	}
 	print(root.next);
-	remove(root.next);
+	delete (root.next);
 	exit(0);
 }
 

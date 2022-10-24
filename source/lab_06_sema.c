@@ -174,7 +174,7 @@ void consumer()
 	}
 	// printf("||%d\n",root.next == NULL);
 	print(root.next);
-	remove(root.next);
+	delete (root.next);
 	// printf("\t\t\tconsumer\n");
 	exit(0);
 }

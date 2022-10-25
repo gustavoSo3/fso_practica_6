@@ -80,7 +80,6 @@ int main(int argc, char *argv[])
 		if (!fork())
 		{
 			// if child create producer
-			// printf("Creando productor %d, %d\n",i,pstart);
 			producer(pstart, end);
 		}
 		pstart += pstart == 2 ? 3 : 2;
@@ -88,13 +87,11 @@ int main(int argc, char *argv[])
 	if (!fork())
 	{
 		// if child create consumer
-		// printf("\t\t\tcreando consumidor\n");
 		consumer();
 	}
 
 	for (i = 0; i < NUM_PRODUCERS + 1; i++)
 		wait(NULL);
-	// printf("terminaron los procesos\n");
 	erasesem(semarr, B_FULL);
 	erasesem(semarr, B_EMPTY);
 	erasesem(semarr, S_EXMUT);
@@ -127,7 +124,6 @@ void producer(int start, int end)
 
 	semsignal(semarr, S_EXMUT); // signal CS
 
-	// printf("Fin productor\n");
 	exit(0);
 }
 
@@ -136,7 +132,6 @@ void add(int i)
 	semwait(semarr, B_FULL);	// wait if buffer is full
 	semwait(semarr, S_EXMUT); // wait if critic section is on use
 
-	// printf("%d\n",i);
 	buffer->arr[buffer->add] = i;
 	buffer->add = (buffer->add + 1) % BUFFER_SIZE;
 
@@ -164,7 +159,6 @@ void consumer()
 		{
 			val = buffer->arr[buffer->read];
 			buffer->read = (buffer->read + 1) % BUFFER_SIZE;
-			// printf("\t\t%d, %d, %d\n",val, end, buffer->pended);
 		}
 
 		semsignal(semarr, S_EXMUT);
@@ -172,10 +166,8 @@ void consumer()
 		if (!end)
 			addNode(&root, val);
 	}
-	// printf("||%d\n",root.next == NULL);
 	print(root.next);
 	delete (root.next);
-	// printf("\t\t\tconsumer\n");
 	exit(0);
 }
 
